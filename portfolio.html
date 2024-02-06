@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="portfolio.css">
+    <title>Portfolio</title>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="#" style="color: #4E9ED6;">Home</a></li>
+            <li><a href="#">About Me</a></li>
+            <li><a href="#">Portfolio</a></li>
+            <li><a href="#">Service</a></li>
+            <li><a href="#">Experince</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+
+    <div class="banner">
+        <h2 class="ban1">I' m a</h2>
+        <div class="box">
+            <h1 id="change-text"></h1>
+        </div>
+    </div>
+    <button>Previous Project</button>
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+        const texts = ['Programmer.', 'Web-Developer.', 'Video Editor.', 'Content Creator.'];
+        const changingTextElement = document.getElementById('change-text');
+        let currentIndex = 0;
+
+        function typeAndEraseText(text, index, isTyping, callback) {
+            const speed = isTyping ? 50 : 30; // Adjust typing and erasing speed here (in milliseconds)
+
+            if (isTyping) {
+                if (index < text.length) {
+                    changingTextElement.innerHTML += text.charAt(index);
+                    index++;
+                    setTimeout(function () {
+                        typeAndEraseText(text, index, true, callback);
+                    }, speed);
+                } else {
+                    setTimeout(function () {
+                        typeAndEraseText(text, index, false, callback);
+                    }, 1000); // Wait for a second after typing is complete
+                }
+            } else {
+                if (index > 0) {
+                    changingTextElement.innerHTML = text.substring(0, index - 1);
+                    index--;
+                    setTimeout(function () {
+                        typeAndEraseText(text, index, false, callback);
+                    }, speed);
+                } else {
+                    callback();
+                }
+            }
+        }
+
+        function updateText() {
+            typeAndEraseText(texts[currentIndex], 0, true, function () {
+                currentIndex = (currentIndex + 1) % texts.length;
+            });
+        }
+
+        setInterval(updateText, 4000); // Change text every 4 seconds
+    </script>
+
+</body>
+
+</html>
